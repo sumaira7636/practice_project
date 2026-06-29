@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+#INSTALLED_APPS is a list of all applications that Django should load when the server starts. 
+# Django imports each app, loads its models, admin configuration, migrations, templates, and signals 
+# so they become part of the project.
 
 INSTALLED_APPS = [
     'django.contrib.admin',

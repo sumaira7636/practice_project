@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from ..models import *
 
+class RegionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Region
+        fields = "__all__"
+
 class ServiceCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -11,12 +17,13 @@ class BookingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Booking
-        fields = [ "id", "service", "address", "booking_date", "booking_time", "payment_done",]
+        fields = [ "id", "service", "region", "address", "booking_date", "booking_time", "payment_done",]
         read_only_fields = ["id"]
 
 class BookingListSerializer(serializers.ModelSerializer):
 
     service = serializers.StringRelatedField()
+    region = serializers.StringRelatedField()
     technician = serializers.StringRelatedField()
 
     class Meta:

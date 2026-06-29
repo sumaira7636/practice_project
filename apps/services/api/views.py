@@ -24,8 +24,8 @@ class BookingCreateView(APIView):
         serializer = BookingSerializer(data=request.data)
         if serializer.is_valid():
             service = serializer.validated_data["service"]
-            address = serializer.validated_data["address"]
-            technician = TechnicianProfile.objects.filter(skill=service,region__iexact=address,is_available=True).first()
+            region = serializer.validated_data["region"]
+            technician = TechnicianProfile.objects.filter(skill=service,region=region,is_available=True).first()
             booking = serializer.save(customer=request.user)
             if technician:
                 booking.technician = technician.user

@@ -2,42 +2,50 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from apps.users.models import User
 
+
+class Region(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    def __str__(self):
+        return self.name
+    
 class ServiceCategory(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
+
 class TechnicianProfile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     skill = models.ForeignKey(ServiceCategory,on_delete=models.CASCADE)
-    region = models.CharField(max_length=100)
+    region = models.ForeignKey(Region,on_delete=models.CASCADE)
     slot_capacity = models.IntegerField(default=5)
     is_available = models.BooleanField(default=True)
+
     def __str__(self):
         return self.user.username
-
 class Booking(models.Model):
 
     STATUS = (
-        ("Pending","Pending"),
-        ("Assigned","Assigned"),
-        ("Started","Started"),
-        ("Completed","Completed"),
-        ("Cancelled","Cancelled"),
+        ("Pending", "Pending"),
+        ("Assigned", "Assigned"),
+        ("Started", "Started"),
+        ("Completed", "Completed"),
+        ("Cancelled", "Cancelled"),
     )
     customer = models.ForeignKey(User,on_delete=models.CASCADE,related_name="customer_bookings")
     technician = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name="technician_bookings")
     service = models.ForeignKey(ServiceCategory,on_delete=models.CASCADE)
+    region = models.ForeignKey(Region,on_delete=models.CASCADE)
     address = models.TextField()
     booking_date = models.DateField()
     booking_time = models.TimeField()
     status = models.CharField(max_length=20,choices=STATUS,default="Pending")
     payment_done = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
         return f"{self.customer.username}"
-
 
 class JobProof(models.Model):
 
