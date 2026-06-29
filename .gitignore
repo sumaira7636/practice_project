@@ -1,0 +1,21 @@
+# Environment Variables
+.env
+.env.*
+
+# Virtual Environment
+env/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Static/Media
+media/
+staticfiles/
