@@ -5,7 +5,8 @@ from .models import *
 @admin.register(Region)
 class RegionAdmin(admin.ModelAdmin):
     list_display = ("id", "name")
-    search_fields = ("id",)
+    search_fields = ("name",)
+    ordering = ("id",)
 
 @admin.register(ServiceCategory)
 

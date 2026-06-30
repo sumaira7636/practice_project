@@ -85,3 +85,4 @@ class TechnicianProfileSerializer(serializers.ModelSerializer):
 # JSON Response
 #        ↓
 # Client
+
